@@ -4,7 +4,7 @@
   "description": "Hosting Replays for total war community",
   "repository": {
     "type": "git",
-    "url": "git@github.com:spring-guides/tut-react-and-spring-data-rest.git"
+    "url": "git@github.com:ritianfitchett/ReplayHoster.git"
   },
   "keywords": [
     "rest",
@@ -13,12 +13,11 @@
     "data",
     "react"
   ],
-  "author": "Greg L. Turnquist",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/spring-guides/tut-react-and-spring-data-rest/issues"
+    "url": "https://github.com/ritianfitchett/ReplayHoster/issues"
   },
-  "homepage": "https://github.com/spring-guides/tut-react-and-spring-data-rest",
+  "homepage": "https://github.com/ritianfitchett/ReplayHoster",
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
