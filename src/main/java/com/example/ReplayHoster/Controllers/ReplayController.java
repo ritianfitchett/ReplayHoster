@@ -2,14 +2,13 @@ package com.example.ReplayHoster.Controllers;
 
 import com.example.ReplayHoster.Entities.Replay;
 import com.example.ReplayHoster.Services.ReplayService;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,6 +16,8 @@ import java.util.List;
 import static org.elasticsearch.action.support.WriteRequest.RefreshPolicy.IMMEDIATE;
 
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api/replay/v1")
 public class ReplayController {
 
     private ReplayService service;
@@ -26,15 +27,22 @@ public class ReplayController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/submit")
     public ResponseEntity createReplay(@RequestBody Replay document) throws Exception {
-        return new ResponseEntity(service.createReplay(document), HttpStatus.CREATED);
+        try {
+            return ResponseEntity.ok().body(service.createReplay(document));
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @GetMapping("/findall")
-    public List<Replay> findAll() throws Exception {
-
-        return service.findAll();
+    @GetMapping("/select")
+    public ResponseEntity<List<Replay>> findAll() throws Exception {
+        try {
+            return ResponseEntity.ok().body(service.findAll());
+        } catch(Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

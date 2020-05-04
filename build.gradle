@@ -1,23 +1,39 @@
-plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
-	id 'idea'
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+		classpath("se.transmode.gradle:gradle-docker:1.2")
+	}
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '14'
+allprojects {
 
-repositories {
-	mavenCentral()
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = 'org.rh'
+	version = '0.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+
+	repositories {
+		mavenCentral()
+	}
 }
+
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.5.2'
+	compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.5.2'
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework:spring-web")
+	compile("com.fasterxml.jackson.core:jackson-databind")
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -25,4 +41,10 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task compileApp {
+	dependsOn('bootJar') doLast {
+		copy { from "build/libs" into "${project.getBuildDir()}/services"; include "*.jar" }
+	}
 }
