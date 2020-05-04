@@ -11,6 +11,8 @@ public class Replay {
     private boolean competitive;
     private String description;
 
+    public Replay(){}
+
     public String getName() {
         return name;
     }
