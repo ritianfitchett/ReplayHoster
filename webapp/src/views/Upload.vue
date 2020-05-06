@@ -28,10 +28,12 @@
       <span v-if="files.length > 0">
         <h4>Please fill out a little bit of information about each file!</h4>
         <p style="margin-bottom:0px;">This will assist in search / browse capabilities.</p>
-        <div v-for="file in files" class="rh-upload-card">
+        <div v-bind:key="file.id" v-for="file in files" class="rh-upload-card">
           <h4 class="title">{{ file.name }}</h4>
           <p style="margin-bottom:0px;">Type: {{ file.type }}</p>
           <input placeholder="title" type="text" class="rh-input-box" />
+          <multiselect v-model="factionSelector" :options="factions"></multiselect> 
+          <!-- <multiselect v-model="PlayerSelector" :options="players" class="rh-input-box"></multiselect> -->
           <input placeholder="tags?" type="text" class="rh-input-box" />
           <textarea class="rh-input-box" placeholder="description" style="height:100px;resize:none;" />
         </div>
@@ -42,9 +44,18 @@
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect'
 export default {
+  // components: { MultiSelect },
   data:() => ({
     files: [],
+    factions: ["Orks", "Empire", "Dwarves", "Chaos", "Beastmen", "High Elves", "Dark Elves", "Wood Elves"],
+    players: [],
+    factionSelector: [],
+    factions: [],
+    competitive: true,                                                               
+
+
 
   }),
   created() {
