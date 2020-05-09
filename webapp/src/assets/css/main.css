@@ -16,6 +16,12 @@
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
+.truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .rh-display-container {
   position: absolute;
   height: calc(100% - 47px);
@@ -44,4 +50,8 @@
 }
 .rh-input-box:hover {
   background: rgba(0,0,0,0.15);
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }

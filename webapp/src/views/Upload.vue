@@ -28,10 +28,15 @@
       <span v-if="files.length > 0">
         <h4>Please fill out a little bit of information about each file!</h4>
         <p style="margin-bottom:0px;">This will assist in search / browse capabilities.</p>
-        <div v-for="file in files" class="rh-upload-card">
-          <h4 class="title">{{ file.name }}</h4>
+        <div v-bind:key="file.id" v-for="file in files" class="rh-upload-card">
+          <h4 class="title truncate">{{ file.name }}</h4>
           <p style="margin-bottom:0px;">Type: {{ file.type }}</p>
           <input placeholder="title" type="text" class="rh-input-box" />
+          <v-select :items="factions" class="rh-input-box" v-model="file.selectedFactions" hide-details
+                    label="Select Factions" style="height:auto;margin-bottom:5px;background:rgba(0,0,0,0.00);"
+                    solo dense multiple clearable background-color="rgba(0,0,0,0.05)"/>
+      <!-- <multiselect v-model="factionSelector" :options="factions"></multiselect>
+           <multiselect v-model="PlayerSelector" :options="players" class="rh-input-box"></multiselect> -->
           <input placeholder="tags?" type="text" class="rh-input-box" />
           <textarea class="rh-input-box" placeholder="description" style="height:100px;resize:none;" />
         </div>
@@ -45,13 +50,25 @@
 export default {
   data:() => ({
     files: [],
+    factions: ["Orks", "Empire", "Dwarves", "Chaos", "Beastmen", "High Elves", "Dark Elves", "Wood Elves"],
+    players: [],
+    factionSelected: [],
+    competitive: true,                                                               
+    uploads: [],
+
 
   }),
   created() {
 
   },
   methods:{
+    submit: function() {
+      //https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestEventTarget/onprogress
+      // We need to track the progress of the upload.  (sent / total) * 100 + '%'
+      // We will create an upload object and store it in the uploads array. The 'on progress' method will be used to
+      // - update each uploads progress individually so that we can display a loading bar.
 
+    }
   },
   watch: {
     files: function() {
