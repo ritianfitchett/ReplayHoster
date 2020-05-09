@@ -5,18 +5,10 @@ module.exports = {
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/api/vue/v1': {
-         target: 'http://localhost:8079',
-         changeOrigin: true
-       },
-      '/api/group/v1': {
+      '/api/replay/v1': {
          target: 'http://localhost:8081',
          changeOrigin: true
        },
-       '/api/environment/v1': {
-         target: 'http://localhost:8081',
-         changeOrigin: true
-       }
     }
   }
 }
